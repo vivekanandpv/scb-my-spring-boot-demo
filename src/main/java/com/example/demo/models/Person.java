@@ -1,6 +1,8 @@
 package com.example.demo.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Person {
@@ -12,6 +14,9 @@ public class Person {
     private String firstName;
     private String lastName;
     private String email;
+
+    @OneToMany(mappedBy = "person")
+    private List<Car> cars = new ArrayList<>();
 
     public int getPersonId() {
         return personId;
@@ -43,5 +48,13 @@ public class Person {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
     }
 }
