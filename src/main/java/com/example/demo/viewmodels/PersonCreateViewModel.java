@@ -1,8 +1,12 @@
 package com.example.demo.viewmodels;
 
+import javax.validation.constraints.*;
+
 public class PersonCreateViewModel {
     private String firstName;
     private String lastName;
+
+    @Email(message = "Entered by should be a proper email")
     private String email;
 
     public String getFirstName() {

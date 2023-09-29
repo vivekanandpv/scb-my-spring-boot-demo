@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -34,12 +35,12 @@ public class PersonApi {
     }
 
     @PostMapping
-    public ResponseEntity<PersonViewModel> create(@RequestBody PersonCreateViewModel person) {
+    public ResponseEntity<PersonViewModel> create(@Valid @RequestBody PersonCreateViewModel person) {
         return ResponseEntity.ok(service.create(person));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<PersonViewModel> updatePut(@PathVariable int id, @RequestBody PersonUpdateViewModel person) {
+    public ResponseEntity<PersonViewModel> updatePut(@Valid @PathVariable int id, @RequestBody PersonUpdateViewModel person) {
         return ResponseEntity.ok(service.update(id, person));
     }
 
