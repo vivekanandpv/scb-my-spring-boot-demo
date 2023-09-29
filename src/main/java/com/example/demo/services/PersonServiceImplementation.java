@@ -23,28 +23,32 @@ public class PersonServiceImplementation implements PersonService {
 
     @Override
     public List<PersonViewModel> getAll() {
-        return null;
+        return repository.findAll()
+                .stream()
+                .map(this::toViewModel)
+                .collect(Collectors.toList());
     }
 
     @Override
     public PersonViewModel getById(int id) {
-        return null;
+        return toViewModel(getEntityById(id));
     }
 
     @Override
     public PersonViewModel create(PersonCreateViewModel viewModel) {
-        return null;
+        return toViewModel(repository.saveAndFlush(toEntity(viewModel)));
     }
 
     @Override
     public PersonViewModel update(int id, PersonUpdateViewModel viewModel) {
-        return null;
+        Person entityDb = getEntityById(id);
+        BeanUtils.copyProperties(viewModel, entityDb);
+        return toViewModel(repository.saveAndFlush(entityDb));
     }
 
     @Override
     public void deleteById(int id) {
-        Person personDb = getById(id);
-
+        Person personDb = getEntityById(id);
         repository.delete(personDb);
     }
 
@@ -66,8 +70,8 @@ public class PersonServiceImplementation implements PersonService {
         return viewModel;
     }
 
-    private Car toEntity(CarCreateViewModel viewModel) {
-        Car entity = new Car();
+    private Person toEntity(PersonCreateViewModel viewModel) {
+        Person entity = new Person();
         BeanUtils.copyProperties(viewModel, entity);
         return entity;
     }
