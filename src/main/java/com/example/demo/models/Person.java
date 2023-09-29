@@ -15,7 +15,7 @@ public class Person {
     private String lastName;
     private String email;
 
-    @OneToMany(mappedBy = "person")
+    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER)
     private List<Car> cars = new ArrayList<>();
 
     public int getPersonId() {
